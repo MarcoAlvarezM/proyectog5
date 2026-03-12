@@ -1,25 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.proyectog5.model;
 
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "proveedores")
 public class Supplier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nombre")
     private String name;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "telefono")
     private String phone;
 
     public Supplier(){}
-
-    // getters y setters
 
     public Long getId() {
         return id;
