@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+    <head>
+
+        <title>Sistema Inventario</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <style>
+
+            body{
+                background:#1f2933;
+                color:white;
+            }
+
+            .navbar{
+                background:#111827;
+            }
+
+            .card{
+                background:#2d3748;
+                border:none;
+                color:white;
+                transition:0.3s;
+            }
+
+            .card:hover{
+                transform:scale(1.05);
+                background:#374151;
+            }
+
+            .btn-system{
+                background:#2563eb;
+                border:none;
+            }
+
+            .btn-system:hover{
+                background:#1e40af;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-dark px-4">
+
+            <span class="navbar-brand">Sistema de Inventario</span>
+
+            <div>
+
+                <span sec:authentication="name"></span>
+
+                <a class="btn btn-danger btn-sm ms-3" th:href="@{/logout}">
+                    Cerrar sesión
+                </a>
+
+            </div>
+
+        </nav>
+
+        <div class="container mt-5">
+
+            <h2 class="mb-4">Panel Principal</h2>
+
+            <div class="row g-4">
+
+                <!-- CATALOGO -->
+
+                <div class="col-md-4">
+
+                    <div class="card p-4 text-center">
+
+                        <h4>Catálogo</h4>
+
+                        <p>Consultar productos disponibles</p>
+
+                      <a th:href="@{/catalogo}" class="btn btn-system">Entrar</a>
+
+                    </div>
+
+                </div>
+
+                <!-- CONSULTAS -->
+
+                <div class="col-md-4">
+
+                    <div class="card p-4 text-center">
+
+                        <h4>Consultas</h4>
+
+                        <p>Búsquedas y reportes</p>
+
+                        <button class="btn btn-system">Entrar</button>
+
+                    </div>
+
+                </div>
+
+                <!-- DASHBOARD -->
+
+                <div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','EMPLOYEE')">
+
+                    <div class="card p-4 text-center">
+
+                        <h4>Inventario</h4>
+
+                        <p>Gestión de productos</p>
+
+                        <a th:href="@{/dashboard}" class="btn btn-system">Entrar</a>
+
+                    </div>
+
+                </div>
+
+                <!-- CATEGORIAS -->
+
+                <div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','EMPLOYEE')">
+
+                    <div class="card p-4 text-center">
+
+                        <h4>Categorías</h4>
+
+                        <p>Administrar categorías</p>
+
+                        <button class="btn btn-system">Entrar</button>
+
+                    </div>
+
+                </div>
+
+                <!-- USUARIOS SOLO ADMIN -->
+
+                <div class="col-md-4" sec:authorize="hasRole('ADMIN')">
+
+                    <div class="card p-4 text-center">
+
+                        <h4>Usuarios</h4>
+
+                        <p>Gestión de usuarios</p>
+
+                       <a th:href="@{/users}" class="btn btn-system">Entrar</a>
+
+                    </div>
+
+                </div>
+                <!-- PRODUCTOS -->
+                <div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','EMPLOYEE')">
+
+                    <div class="card p-4 text-center">
+
+                        <h4>Productos</h4>
+
+                        <p>Administrar productos del inventario</p>
+
+                        <a th:href="@{/products}" class="btn btn-system">
+                            Ir a productos
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    </body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Usuarios</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-dark text-white">
+        <div class="container mt-5">
+            <h2>Gestión de Usuarios</h2>
+
+            <!-- AGREGAR USUARIO -->
+            <a th:href="@{/users/new}" class="btn btn-success mb-3">
+                ➕ Agregar Usuario
+            </a>
+
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="u : ${users}">
+                        <td th:text="${u.id}"></td>
+                        <td th:text="${u.username}"></td>
+                        <td th:text="${u.firstName + ' ' + u.lastName}"></td>
+                        <td>
+                            <span th:each="role : ${u.roles}" th:text="${role.name} + ' '"></span>
+                        </td>
+                        <td>
+                            <span th:text="${u.active ? 'Activo' : 'Bloqueado'}" 
+                                  th:class="${u.active ? 'text-success' : 'text-danger'}"></span>
+                        </td>
+                        <td>
+                            <a th:href="@{/users/edit/{id}(id=${u.id})}" class="btn btn-warning btn-sm">Editar</a>
+
+                            <a th:if="${u.active}" 
+                               th:href="@{/users/block/{id}(id=${u.id})}" 
+                               class="btn btn-secondary btn-sm">Bloquear</a>
+
+                            <a th:unless="${u.active}" 
+                               th:href="@{/users/unblock/{id}(id=${u.id})}" 
+                               class="btn btn-success btn-sm">Desbloquear</a>
+
+                            <a th:href="@{/users/delete/{id}(id=${u.id})}" class="btn btn-danger btn-sm">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
